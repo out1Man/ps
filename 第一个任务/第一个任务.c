@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <malloc.h>
-#define SIZE 111111024*1111111024
 #include <math.h>
 int main()
 {
@@ -27,6 +26,7 @@ int main()
 		if (n==0)
 			break;
 	}
+	fclose(a);
 	return 0;
 }
 
