@@ -52,9 +52,26 @@ for i in range(height):
         for j in range(1,3*length+1):
            rgblist[i * (length*3+1) + j] = int((rgblist[(i - 1) * (length*3+1) + j] + rgblist[i * (length*3+1) + j]) % 256)
     elif rgblist[i * (length * 3 +1)] == 3:
+        for j in range(1,4):
+            rgblist[i * (length*3+1) + j] = int((rgblist[(i - 1) * (3*length+1) + j] ) / 2 + rgblist[i * (length*3+1) + j]) % 256
         for j in range(4,3*length+1):
             rgblist[i * (length*3+1) + j] = int((rgblist[(i - 1) * (3*length+1) + j] + rgblist[i * (length*3+1) + j - 3]) / 2 + rgblist[i * (length*3+1) + j]) % 256
     elif rgblist[i * (length * 3 +1)] == 4:
+        for j in range(1,4):
+            a = 0
+            b = rgblist[j + (i - 1) * (length * 3 + 1)]
+            c = 0
+            p = a + b - c
+            pa = abs(p - a)
+            pb = abs(p - b)
+            pc = abs(p - c)
+            if pa <= pb and pa <= pc:
+                count = a
+            elif pb <= pc:
+                count = b
+            else:
+                count = c
+            rgblist[j + i * (length * 3 + 1)] = int((rgblist[j + i * (length * 3 + 1)] + count) % 256)
         for j in range(4,3*length+1):
             a = rgblist[j - 3 + i * (length*3+1)]
             b = rgblist[j + (i - 1) * (length*3+1)]
