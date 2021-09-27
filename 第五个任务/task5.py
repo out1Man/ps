@@ -1,16 +1,6 @@
-# 9.26
-
-今天可以基本算一口气完成了任务4和任务5，但在测试时发现对于一些图片 出现了问题。询问出题人之后，意识到可能是filter算法问题。明天继续肝，加油。
-
-同时今天还知道了typroa可以切换代码模式 哈哈啊哈
-
-
-
-## python代码
-
 import zlib
 import struct
-filename="C:\\Users\\out Man\\Desktop\\ps后端\\task1\\test1.png"
+filename="C:\\Users\\out Man\\Desktop\\1\\ps\\第五个任务\\test6.png"
 f=open(filename,"rb")
 png=f.read()
 #png_list2=list(png)
@@ -54,7 +44,7 @@ while nu_byte<len(png_list):
 #print(by_idat[0:100])
 uncom=zlib.decompress(by_idat)
 
-#print(uncom[0:100])
+#print(uncom[1000000:1000100])
 rlist=[]
 glist=[]
 blist=[]
@@ -65,7 +55,7 @@ for i in range(height):
         continue
     elif rgblist[i * (length * 3 +1)] == 1:
         for j in range(4,3*length+1):
-            rgblist[i * (length*3+1) + j] = int((rgblist[i *(length*3+1)+ j] + rgblist[i * (length*3+1) + j - 3]) % 256)
+            rgblist[i * (length*3+1) + j] = int((rgblist[i * (length*3+1) + j] + rgblist[i * (length*3+1) + j - 3]) % 256)
     elif rgblist[i * (length * 3 +1)] == 2:
         for j in range(1,3*length+1):
            rgblist[i * (length*3+1) + j] = int((rgblist[(i - 1) * (length*3+1) + j] + rgblist[i * (length*3+1) + j]) % 256)
@@ -105,12 +95,16 @@ for i in range(height):
             else:
                 count = c
             rgblist[j + i * (length*3+1)] = int((rgblist[j + i * (length*3+1)] + count) % 256)
+
 #print(rgblist[0:100])
 for i in range(height):
     for j in range(1,3*length+1,3):
         rgblist[j+i*(3*length+1)]=int((rgblist[j+i*(3*length+1)]*0.3+rgblist[j+1+i*(3*length+1)]*0.59+(rgblist[j+2+i*(3*length+1)]*0.11))%256)
         rgblist[j+1+i*(3*length+1)]=int((rgblist[j+i*(3*length+1)]*0.3+rgblist[j+1+i*(3*length+1)]*0.59+(rgblist[j+2+i*(3*length+1)]*0.11))%256)
         rgblist[j+2+i*(3*length+1)]=int((rgblist[j+i*(3*length+1)]*0.3+rgblist[j+1+i*(3*length+1)]*0.59+(rgblist[j+2+i*(3*length+1)]*0.11))%256)
+for i in range(height):
+    if rgblist[(3*length+1)*i]==4:
+        rgblist[(3 * length + 1) * i] == 0
 
 for i in range(height-1,-1,-1):
     if rgblist[i * (length * 3+1 )] == 0:
@@ -158,10 +152,12 @@ for i in range(height-1,-1,-1):
                 count = c
             rgblist[j + i * (length*3+1)] = int((rgblist[j + i * (length*3+1)] - count) % 256)
 #print(rgblist[0:100])
+
+
 umidat=b""
 umidat+=bytearray(rgblist[0:len(rgblist)])
 comidat=zlib.compress(umidat)
-#print(rgblist[0:100])
+#print(rgblist[1000000:1000100])
 #print(len(rgblist))
 #print(len(comidat))
 
@@ -182,5 +178,6 @@ png2+=bytearray(comlist)
 png2+=bytearray(crclist)
 png2+=bytearray(endlist)
 #print(endlist)
-testfile = open("C:\\Users\\out Man\\Desktop\\ps后端\\task1\\test8.png", mode = 'wb')
+testfile = open("C:\\Users\\out Man\\Desktop\\1\\ps\\第五个任务\\test5.png", mode = 'wb')
 testfile.write(png2)
+
