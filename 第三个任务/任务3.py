@@ -1,5 +1,5 @@
 import zlib
-import numpy
+
 
 filename=input("请输入文件位置")
 f=open(filename,"rb")
